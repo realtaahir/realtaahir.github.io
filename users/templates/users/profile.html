@@ -1,0 +1,95 @@
+<!-- users/templates/users/profile.html -->
+
+<!-- <h2>Profile</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Profile</button>
+  </form> -->
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Profile</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <style>
+          /* Body styling */
+          body {
+              background-color: #f8f9fa;
+              display: flex; /* Use flexbox for centering */
+              justify-content: center; /* Center horizontally */
+              align-items: center; /* Center vertically */
+              height: 100vh; /* Full viewport height */
+              margin: 0; /* Remove default margin */
+          }
+          /* Container styling */
+          .container {
+              max-width: 750px; /* Maximum width */
+              width: 100%; /* Full width */
+              margin: auto; /* Center horizontally */
+              padding: 30px; /* Padding inside container */
+              background-color: #ffffff; /* White background */
+              box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Dark shadow effect */
+              border-radius: 10px; /* Rounded corners */
+          }
+          /* Heading styling */
+          h2 {
+              text-align: center; /* Center align text */
+              margin-bottom: 20px; /* Bottom margin */
+          }
+          /* Form styling */
+          form {
+              margin-bottom: 20px; /* Bottom margin for form */
+          }
+          /* Button styling */
+          button {
+              display: block; /* Block display for full-width */
+              width: 100%; /* Full-width button */
+              padding: 10px; /* Padding inside button */
+              background-color: #007bff; /* Primary blue background */
+              color: #ffffff; /* White text color */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              font-size: 1rem; /* Font size */
+              cursor: pointer; /* Pointer cursor on hover */
+          }
+          /* Input styling */
+          input, select, textarea  {
+              width: 100%; /* Full-width input */
+              padding: 10px; /* Padding inside input */
+              margin-bottom: 15px; /* Bottom margin for spacing */
+              border: 1px solid #ced4da; /* Border color */
+              border-radius: 5px; /* Rounded corners */
+              box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+          }
+          /* Hide specific elements */
+          p:has(label[for="id_password"]), #id_password, #id_password_helptext {
+              display: none; /* Hide elements */
+          }
+  
+          /* Responsive design */
+          @media (max-width: 768px) {
+              .container {
+                  padding: 20px; /* Adjust padding for smaller screens */
+              }
+              button {
+                  font-size: 0.9rem; /* Adjust font size for smaller screens */
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h2>Profile</h2>
+          <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit">Update Profile</button>
+          </form>
+      </div>
+  </body>
+  </html>
+  

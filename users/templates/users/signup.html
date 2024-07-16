@@ -1,0 +1,117 @@
+<!-- users/templates/users/signup.html -->
+<!-- 
+<h2>Signup</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Signup</button>
+  </form>
+
+
+  <p><a href="{% url 'users:password_reset' %}">Forgot your password?</a></p>
+  Already have an account?<a href="{% url 'users:login' %}">Login</a>  -->
+
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Signup</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <style>
+          /* Body styling */
+          body {
+              background-color: #f8f9fa;
+              display: flex; /* Use flexbox for centering */
+              justify-content: center; /* Center horizontally */
+              align-items: center; /* Center vertically */
+              height: 100vh; /* Full viewport height */
+              margin: 0; /* Remove default margin */
+          }
+          /* Container styling */
+          .container {
+              max-width: 550px; /* Maximum width */
+              width: 100%; /* Full width */
+              margin: auto; /* Center horizontally */
+              padding: 30px; /* Padding inside container */
+              background-color: #ffffff; /* White background */
+              box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Dark shadow effect */
+              border-radius: 10px; /* Rounded corners */
+          }
+          /* Heading styling */
+          h2 {
+              text-align: center; /* Center align text */
+              margin-bottom: 20px; /* Bottom margin */
+          }
+          /* Form styling */
+          form {
+              margin-bottom: 20px; /* Bottom margin for form */
+          }
+          /* Button styling */
+          button {
+              display: block; /* Block display for full-width */
+              width: 100%; /* Full-width button */
+              padding: 10px; /* Padding inside button */
+              background-color: #007bff; /* Primary blue background */
+              color: #ffffff; /* White text color */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              font-size: 1rem; /* Font size */
+              cursor: pointer; /* Pointer cursor on hover */
+          }
+          /* Input styling */
+          input, select, textarea {
+              width: 100%; /* Full-width input */
+              padding: 10px; /* Padding inside input */
+              margin-bottom: 15px; /* Bottom margin for spacing */
+              border: 1px solid #ced4da; /* Border color */
+              border-radius: 5px; /* Rounded corners */
+              box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+          }
+          /* Error list styling */
+          .errorlist {
+              color: red; /* Red color for errors */
+              list-style-type: none; /* Remove list bullets */
+              padding-left: 0; /* Remove default padding */
+              margin-bottom: 15px; /* Bottom margin for spacing */
+          }
+          /* Link styling */
+          .link-container {
+              text-align: center; /* Center align links */
+              margin-top: 15px; /* Top margin */
+          }
+          /* Responsive design */
+          @media (max-width: 768px) {
+              .container {
+                  padding: 20px; /* Adjust padding for smaller screens */
+              }
+              button {
+                  font-size: 0.9rem; /* Adjust font size for smaller screens */
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h2>Signup</h2>
+          <form method="post">
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              {% for field in form %}
+                  <div class="form-group">
+                      {{ field.errors }}
+                      {{ field.label_tag }} {{ field }}
+                  </div>
+              {% endfor %}
+              <button type="submit">Signup</button>
+          </form>
+          <div class="link-container">
+              <p><a href="{% url 'users:password_reset' %}">Forgot your password?</a></p>
+              <p>Already have an account? <a href="{% url 'users:login' %}">Login</a></p>
+          </div>
+      </div>
+  </body>
+  </html>
+  
