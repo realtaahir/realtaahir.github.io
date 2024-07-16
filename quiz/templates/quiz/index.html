@@ -1,0 +1,97 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sections</title>
+</head>
+<body>
+    <h1>Sections</h1>
+    <h2>{{ request.user.username}}</h2>
+    <ul>
+        {% for section in section_data %}
+             
+            <a href="{% url 'quiz:subsection_detail' section.id %}"><li>{{ section.section_name }}</li></a>
+        {% endfor %}
+    </ul>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sections</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS styles -->
+    <style>
+        /* Body styling */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px; /* Padding for content */
+        }
+        /* Header styling */
+        h1, h2 {
+            text-align: center; /* Center align text */
+        }
+        /* List styling */
+        ul {
+            list-style-type: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding */
+        }
+        /* List item styling */
+        li {
+            margin-bottom: 10px; /* Bottom margin */
+            background-color: #ffffff; /* White background */
+            border: 1px solid #ced4da; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+        /* Button styling */
+        .btn-link {
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor */
+            transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+            padding: 15px; /* Padding inside button */
+            text-align: center; /* Center align text */
+            width: 100%; /* Full width */
+            display: block; /* Display block */
+            color: #007bff; /* Text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Dark shadow */
+        }
+        /* Button hover effect */
+        .btn-link:hover {
+            color: #0056b3; /* Darken text color on hover */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Increase shadow on hover */
+            text-decoration: none; /* Remove underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sections</h1>
+        <h2>Welcome, {{ request.user.username }}</h2>
+        <ul>
+            {% for section in section_data %}
+                <li>
+                    <form action="{% url 'quiz:subsection_detail' section.id %}" method="get">
+                        <button type="submit" class="btn btn-link">{{ section.section_name }}</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script> <!-- Popper.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
+</body>
+</html>
+
+

@@ -1,0 +1,118 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load quiz_filters %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Result</h1>
+        <p>Total Questions: {{ user_response.total_questions }}</p>
+        <p>Correct: {{ user_response.correct }}</p>
+        <p>Incorrect: {{ user_response.incorrect }}</p>
+        <p>Omitted: {{ user_response.omitted }}</p>
+        
+
+        <h2>Review Questions</h2>
+        <ul>
+            {% for question in questions_list %}
+                <li>
+                    <strong>{{ question.text }}</strong><br>
+                    Your answer: {{ user_answers|get_answer_display:question }}<br>
+                    Correct answer: {{ question|get_correct_answer_display }}<br>
+                    Explanation: {{ question.explanation }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br>
+        <hr>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load quiz_filters %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Body styling */
+        body {
+            background-color: #f8f9fa;
+        }
+        /* Container styling */
+        .container {
+            max-width: 850px; /* Maximum width */
+            margin: 120px auto 50px; /* Margins for centering vertically */
+            padding: 30px; /* Padding inside container */
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 10px; /* Rounded corners */
+        }
+        /* Heading 1 styling */
+        h1 {
+            text-align: center; /* Center align text */
+            margin-bottom: 20px; /* Bottom margin */
+        }
+        /* Heading 2 styling */
+        h2 {
+            margin-top: 30px; /* Top margin */
+            margin-bottom: 15px; /* Bottom margin */
+        }
+        /* List styling */
+        ul {
+            list-style-type: none; /* Remove list bullets */
+            padding-left: 0; /* Remove default padding */
+        }
+        /* List item styling */
+        li {
+            margin-bottom: 30px; /* Bottom margin */
+            padding: 15px; /* Padding inside list item */
+            background-color: #f0f0f0; /* Light gray background */
+            border: 1px solid #ced4da; /* Border color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Dark shadow */
+        }
+        /* Inner content spacing */
+        li > * {
+            margin-bottom: 10px; /* Bottom margin for inner elements */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Result</h1>
+        <p>Total Questions: {{ user_response.total_questions }}</p>
+        <p>Correct: {{ user_response.correct }}</p>
+        <p>Incorrect: {{ user_response.incorrect }}</p>
+        <p>Omitted: {{ user_response.omitted }}</p>
+        <p class="text-center"><a href="{% url 'quiz:dashboard' %}" class="btn btn-primary">Go to Dashboard</a></p>
+
+        <h2>Review Questions</h2>
+        <ul>
+            {% for question in questions_list %}
+                <li>
+                    <strong>Question {{ forloop.counter }}:</strong> {{ question.text }}<br>
+                    <strong>Your answer:</strong> {{ user_answers|get_answer_display:question }}<br>
+                    <strong>Correct answer:</strong> {{ question|get_correct_answer_display }}<br>
+                    <strong>Explanation:</strong> {{ question.explanation }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br>
+        <hr>
+    </div>
+</body>
+</html>

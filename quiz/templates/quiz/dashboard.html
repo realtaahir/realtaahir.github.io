@@ -1,0 +1,319 @@
+{% if messages %}
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+{% endif%}
+
+<h1>Dashboard</h1>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
+<!-- templates/quiz/user_responses.html -->
+
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+
+<!-- templates/quiz/user_responses.html -->
+<style>
+  /* Styling for the cards */
+  .card {
+    border: rgba(32, 2, 2, 0.932);
+    
+    
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(124, 113, 113, 0.89); /* Box shadow for a subtle effect */
+  }
+
+  .bac{
+    background-color: #F2EFF1;
+  }
+  </style>
+
+<div class="container-fluid bac">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <!-- User Responses Over Time Chart -->
+      <div class="card shadow mb-4">
+        <div class="card-header bg-white text-black">
+          <h4 class="mb-0">User Performance Over Time</h4> <!-- Header of the chart -->
+        </div>
+        <div class="card-body">
+          <canvas id="lineChart" width="400" height="300"></canvas> <!-- Canvas for displaying line chart -->
+        </div>
+      </div>
+      <!-- User Performance Summary Card -->
+      <div class="card shadow mb-4 ">
+        <div class="card-header bg-white text-black">
+          <h4 class="mb-0">User Performance Summary</h4> <!-- Header of the card -->
+        </div>
+        <div class="card-body">
+          <!-- Form for date filtering -->
+          <form method="get" class="form-inline mb-4">
+            <div class="form-group mr-2">
+              <label for="start_date" class="mr-2">Start Date:</label>
+              <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}">
+            </div>
+            <div class="form-group mr-2">
+              <label for="end_date" class="mr-2">End Date:</label>
+              <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button> <!-- Submit button for filtering -->
+          </form>
+          
+          <!-- Cards displaying various metrics -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Questions Attempted</h5>
+                  <p class="card-text">{{ total_questions_attempted }}</p> <!-- Displaying total questions attempted -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Correct Answers</h5>
+                  <p class="card-text">{{ total_correct }}</p> <!-- Displaying total correct answers -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Incorrect Answers</h5>
+                  <p class="card-text">{{ total_incorrect }}</p> <!-- Displaying total incorrect answers -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Omitted</h5>
+                  <p class="card-text">{{ total_omitted }}</p> <!-- Displaying total omitted answers -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Overall Performance (All Students)</h5>
+                  <ul class="list-unstyled">
+                    <li>Average Correct Answers: {{ overall_performance.avg_correct|floatformat:2 }}</li> <!-- Displaying average correct answers for all users -->
+                    <li>Average Incorrect Answers: {{ overall_performance.avg_incorrect|floatformat:2 }}</li> <!-- Displaying average incorrect answers for all users -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-white mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Your Average Performance</h5>
+                  <ul class="list-unstyled">
+                    <li>Average Correct Answers: {{ user_avg_performance.avg_correct|floatformat:2 }}</li> <!-- Displaying your average correct answers -->
+                    <li>Average Incorrect Answers: {{ user_avg_performance.avg_incorrect|floatformat:2 }}</li> <!-- Displaying your average incorrect answers -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <!-- Correct vs Incorrect Responses Chart -->
+      <div class="card shadow mb-4">
+        <div class="card-header bg-white text-black">
+          <h4 class="mb-0">Correct vs Incorrect</h4> <!-- Header of the chart -->
+        </div>
+        <div class="card-body">
+          <canvas id="barChart" width="400" height="250"></canvas> <!-- Canvas for displaying bar chart -->
+        </div>
+      </div>
+      
+      <!-- Response Breakdown Pie Chart -->
+      <div class="card shadow mb-4">
+        <div class="card-header bg-white text-black">
+          <h4 class="mb-0">Response Breakdown</h4>
+        </div>
+        <div class="card-body">
+          <canvas id="pieChart" width="400" height="200"></canvas> 
+        </div>
+      </div>
+      
+      <!-- Performance Comparison Chart -->
+      <div class="card shadow mb-4">
+        <div class="card-header bg-white text-black">
+          <h4 class="mb-0">All Students Performance Comparison</h4> <!-- Header of the chart -->
+        </div>
+        <div class="card-body">
+          <canvas id="comparisonChart" width="400" height="300"></canvas> <!-- Canvas for displaying comparison chart -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the context of each chart canvas
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+
+    // Prepare data for the charts
+    const labels = [{% for response in user_responses %}'{{ response.datetime__date }}',{% endfor %}]; // Labels for X-axis (dates)
+    const totalAttemptsData = [{% for response in user_responses %}{{ response.total_attempts }},{% endfor %}]; // Data for total attempts
+    const correctData = [{% for response in user_responses %}{{ response.total_correct }},{% endfor %}]; // Data for correct answers
+    const incorrectData = [{% for response in user_responses %}{{ response.total_incorrect }},{% endfor %}]; // Data for incorrect answers
+    const omittedData = [{% for response in user_responses %}{{ response.total_omitted }},{% endfor %}]; // Data for omitted answers
+
+    // Line Chart
+    new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Total Attempts',
+          data: totalAttemptsData,
+          borderColor: 'rgba(75, 192, 192, 1)', // Border color for the line
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color for the area under the line
+          borderWidth: 4,
+          fill: true,
+          pointBackgroundColor: 'rgba(0, 0, 0, 1)', // Color of data points
+          pointBorderColor: 'rgba(0, 0, 0)',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(75, 192, 192, 1)'
+        }]
+      },
+      options: {
+        responsive: true, // Make chart responsive
+        maintainAspectRatio: false, // Allow chart to resize
+        scales: {
+          y: {
+            beginAtZero: true, // Start Y-axis at zero
+            ticks: {
+              stepSize: 1// Set tick interval
+            }
+          }
+        }
+      }
+    });
+
+    // Bar Chart
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Correct',
+            data: correctData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Background color for correct data bars
+            borderColor: 'rgba(54, 162, 235, 1)', // Border color for correct data bars
+            borderWidth: 1
+          },
+          {
+            label: 'Incorrect',
+            data: incorrectData,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Background color for incorrect data bars
+            borderColor: 'rgba(255, 99, 132, 1)', // Border color for incorrect data bars
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    // Pie Chart
+    new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Correct', 'Incorrect', 'Omitted'], // Labels for pie slices
+        datasets: [{
+          data: [{{ total_correct }}, {{ total_incorrect }}, {{ total_omitted }}], // Data values for pie slices
+          backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(255, 206, 86, 0.6)'], // Background colors for pie slices
+          borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 206, 86, 1)'], // Border colors for pie slices
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+    // Comparison Chart
+    new Chart(comparisonCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Average Correct', 'Average Incorrect'], // Labels for comparison bars
+        datasets: [
+          {
+            label: 'Your Average',
+            data: [{{ user_avg_performance.avg_correct|default:0 }}, {{ user_avg_performance.avg_incorrect|default:0 }}], // Data for user average bars
+            backgroundColor: 'rgb(255, 195, 113, 0.6)', // Background color for user average bars
+            borderColor: 'rgba(75, 192, 192, 1)', // Border color for user average bars
+            borderWidth: 1
+          },
+          {
+            label: 'All students Average',
+            data: [{{ overall_performance.avg_correct|default:0 }}, {{ overall_performance.avg_incorrect|default:0 }}], // Data for overall average bars
+            backgroundColor: 'rgb(244, 117, 96,0.6)', // Background color for overall average bars
+            borderColor: 'rgba(153, 102, 255, 1)', // Border color for overall average bars
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
